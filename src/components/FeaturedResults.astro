@@ -1,0 +1,85 @@
+<section class="results">
+
+  <div class="container">
+
+    <div class="result">
+
+      <h2>250%+</h2>
+
+      <p>Average ROAS Improvement*</p>
+
+    </div>
+
+    <div class="result">
+
+      <h2>50+</h2>
+
+      <p>Campaigns Managed</p>
+
+    </div>
+
+    <div class="result">
+
+      <h2>100%</h2>
+
+      <p>Senior-Level Attention</p>
+
+    </div>
+
+  </div>
+
+  <div class="container">
+    <p class="note">
+      *Replace these with your real numbers as your portfolio grows.
+    </p>
+  </div>
+
+</section>
+
+<style>
+
+.results{
+padding:100px 0;
+}
+
+.results .container:first-child{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:40px;
+}
+
+.result{
+text-align:center;
+padding:40px;
+border:1px solid var(--border);
+border-radius:20px;
+background:white;
+}
+
+.result h2{
+font-size:3rem;
+color:var(--accent);
+margin-bottom:12px;
+}
+
+.result p{
+color:var(--muted);
+}
+
+.note{
+margin-top:24px;
+text-align:center;
+font-size:.9rem;
+color:var(--muted);
+font-style:italic;
+}
+
+@media(max-width:768px){
+
+.results .container:first-child{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>

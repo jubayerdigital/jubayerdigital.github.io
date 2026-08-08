@@ -1,0 +1,104 @@
+---
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+interface Props {
+  faqs: FaqItem[];
+}
+const { faqs } = Astro.props;
+---
+
+<section class="faq section">
+  <div class="wrap wrap--narrow">
+    <p class="eyebrow reveal">Before you apply</p>
+    <h2 class="reveal">Questions worth answering upfront</h2>
+
+    <div class="faq__list">
+      {faqs.map((item) => (
+        <details class="faq__item reveal">
+          <summary>
+            <span>{item.question}</span>
+            <span class="faq__icon" aria-hidden="true"></span>
+          </summary>
+          <p>{item.answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq h2 {
+    margin-bottom: clamp(2.5rem, 2rem + 2vw, 4rem);
+  }
+
+  .faq__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .faq__item {
+    border-top: 1px solid var(--line);
+    padding-block: 1.5rem;
+  }
+
+  .faq__item:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .faq__item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  .faq__item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    position: relative;
+  }
+
+  .faq__icon::before,
+  .faq__icon::after {
+    content: '';
+    position: absolute;
+    background: var(--ink);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .faq__icon::before {
+    width: 12px;
+    height: 1.5px;
+  }
+
+  .faq__icon::after {
+    width: 1.5px;
+    height: 12px;
+    transition: transform 200ms ease-out;
+  }
+
+  .faq__item[open] .faq__icon::after {
+    transform: translate(-50%, -50%) rotate(90deg) scale(0);
+  }
+
+  .faq__item p {
+    margin-top: 1rem;
+    color: var(--ink-soft);
+    max-width: 62ch;
+    line-height: 1.65;
+  }
+</style>

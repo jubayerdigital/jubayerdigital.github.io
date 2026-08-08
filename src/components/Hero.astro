@@ -1,123 +1,109 @@
 ---
-import Button from "./Button.astro";
+interface Props {
+  data: {
+    eyebrow?: string;
+    headline: string;
+    supportingLine: string;
+    buttonLabel: string;
+    buttonHref: string;
+    chartCaption?: string;
+  };
+}
+const { data } = Astro.props;
 ---
 
 <section class="hero">
-
-    <div class="container hero-grid">
-
-        <div class="hero-content">
-
-            <p class="eyebrow">
-                Digital Marketing Specialist
-            </p>
-
-            <h1>
-                Marketing that pays for itself —
-                not just looks good.
-            </h1>
-
-            <p class="lead">
-                I work with a small number of clients at a time—
-                so every campaign gets senior-level attention,
-                not leftover bandwidth.
-            </p>
-
-            <Button href="#contact">
-               Apply for a Strategy Call
-            </Button>
-
-        </div>
-
-        <div class="hero-visual">
-
-            <div class="chart-placeholder">
-
-                <div class="line"></div>
-
-            </div>
-
-        </div>
-
+  <div class="wrap hero__grid">
+    <div class="hero__copy">
+      {data.eyebrow && <p class="eyebrow">{data.eyebrow}</p>}
+      <h1>{data.headline}</h1>
+      <p class="hero__support">{data.supportingLine}</p>
+      <a href={data.buttonHref} class="btn btn--primary">{data.buttonLabel}</a>
     </div>
 
+    <div class="hero__visual" aria-hidden="true">
+      <svg viewBox="0 0 420 300" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Upward trending performance chart">
+        <line x1="32" y1="30" x2="32" y2="260" stroke="var(--line)" stroke-width="1"></line>
+        <line x1="32" y1="260" x2="400" y2="260" stroke="var(--line)" stroke-width="1"></line>
+        <path
+          d="M32 220 C 90 215, 120 190, 160 170 S 230 140, 260 110 S 340 60, 400 40"
+          stroke="var(--accent)"
+          stroke-width="3"
+          stroke-linecap="round"
+          fill="none"
+          class="hero__line"
+        ></path>
+        <circle cx="400" cy="40" r="5" fill="var(--accent)"></circle>
+      </svg>
+      {data.chartCaption && <p class="hero__caption">{data.chartCaption}</p>}
+    </div>
+  </div>
 </section>
 
 <style>
-.hero{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-}
+  .hero {
+    padding-block: clamp(3.5rem, 2rem + 6vw, 7rem) var(--section-pad-y);
+  }
 
-.hero-grid{
-    display:grid;
-    grid-template-columns:1.1fr .9fr;
-    gap:4rem;
-    align-items:center;
-}
+  .hero__grid {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+  }
 
-.eyebrow{
-    color:var(--accent);
-    text-transform:uppercase;
-    letter-spacing:.08em;
-    font-weight:600;
-    margin-bottom:18px;
-    font-size:.9rem;
-}
+  .hero__copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    max-width: 640px;
+  }
 
-h1{
-    font-size:clamp(3rem,7vw,5rem);
-    max-width:700px;
-    margin-bottom:28px;
-}
+  .hero__support {
+    font-size: clamp(1.05rem, 1rem + 0.3vw, 1.2rem);
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 42ch;
+  }
 
-.lead{
-    color:var(--muted);
-    max-width:620px;
-    margin-bottom:40px;
-    font-size:1.15rem;
-}
+  .hero__visual {
+    justify-self: center;
+    width: 100%;
+    max-width: 420px;
+  }
 
-.button{
-    display:inline-block;
-    background:var(--primary);
-    color:#fff;
-    padding:16px 32px;
-    border-radius:999px;
-    transition:.25s;
-}
+  .hero__caption {
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    text-align: right;
+  }
 
-.button:hover{
-    transform:translateY(-2px);
-}
+  .hero__line {
+    stroke-dasharray: 520;
+    stroke-dashoffset: 520;
+    animation: draw 1400ms ease-out 200ms forwards;
+  }
 
-.chart-placeholder{
-    aspect-ratio:4/3;
-    border:1px solid var(--border);
-    border-radius:20px;
-    background:#fff;
-    position:relative;
-    overflow:hidden;
-}
-
-.line{
-    position:absolute;
-    left:10%;
-    right:10%;
-    top:55%;
-    height:3px;
-    background:var(--accent);
-    transform:rotate(-15deg);
-}
-
-@media (max-width:900px){
-    .hero-grid{
-        grid-template-columns:1fr;
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
     }
+  }
 
-    .hero-visual{
-        order:-1;
+  @media (prefers-reduced-motion: reduce) {
+    .hero__line {
+      stroke-dashoffset: 0;
+      animation: none;
     }
-}
+  }
+
+  @media (min-width: 860px) {
+    .hero__grid {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+    .hero__visual {
+      justify-self: end;
+    }
+  }
 </style>

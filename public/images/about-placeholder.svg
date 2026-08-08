@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="560" viewBox="0 0 480 560">
+  <rect width="480" height="560" fill="#101c36"/>
+  <circle cx="240" cy="220" r="86" fill="#1a2a4d"/>
+  <path d="M120 470c20-90 90-140 120-140s100 50 120 140" fill="#1a2a4d"/>
+  <text x="240" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#8a93a8">Replace via CMS &#8594; About &#8594; Photo</text>
+</svg>

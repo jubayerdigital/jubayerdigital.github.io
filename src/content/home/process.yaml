@@ -1,0 +1,12 @@
+heading: "How we'll work together"
+subheading: "The same three stages, every time — so you always know what's next."
+steps:
+  - number: "01"
+    title: "Audit"
+    description: "A structured review of your current spend, funnel, and platforms — so every recommendation after this is based on your data, not a template."
+  - number: "02"
+    title: "Strategy"
+    description: "A prioritized plan built around where your budget is actually losing money, and the fastest path to fixing it first."
+  - number: "03"
+    title: "Execution"
+    description: "Campaigns launched, measured weekly, and adjusted in the open — with direct access to me, not a status report from an account manager."

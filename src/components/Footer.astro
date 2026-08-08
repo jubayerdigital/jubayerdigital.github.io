@@ -1,0 +1,102 @@
+---
+interface Props {
+  site: {
+    siteName: string;
+    navLinks: { label: string; href: string }[];
+    socials: { platform: string; url: string }[];
+    footerNote?: string;
+  };
+}
+const { site } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap footer__row">
+    <div class="footer__brand">
+      <span class="footer__mark">{site.siteName}</span>
+      {site.footerNote && <span class="footer__note">{site.footerNote}</span>}
+    </div>
+
+    <nav class="footer__nav" aria-label="Footer">
+      {site.navLinks.map((link) => (
+        <a href={link.href}>{link.label}</a>
+      ))}
+    </nav>
+
+    <div class="footer__socials">
+      {site.socials.map((s) => (
+        <a href={s.url} target="_blank" rel="noopener noreferrer">{s.platform}</a>
+      ))}
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="footer__copy">© {year} {site.siteName}. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--paper-deep);
+    color: var(--paper);
+    padding-block: 3.5rem 2rem;
+  }
+
+  .footer__row {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid var(--line-on-deep);
+  }
+
+  .footer__brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .footer__mark {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+
+  .footer__note {
+    font-size: 0.85rem;
+    color: rgba(243, 245, 247, 0.6);
+  }
+
+  .footer__nav,
+  .footer__socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+
+  .footer__nav a,
+  .footer__socials a {
+    text-decoration: none;
+    font-size: 0.85rem;
+    color: rgba(243, 245, 247, 0.72);
+  }
+
+  .footer__nav a:hover,
+  .footer__socials a:hover {
+    color: var(--paper);
+  }
+
+  .footer__copy {
+    padding-top: 1.5rem;
+    font-size: 0.78rem;
+    color: rgba(243, 245, 247, 0.5);
+  }
+
+  @media (min-width: 700px) {
+    .footer__row {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+</style>

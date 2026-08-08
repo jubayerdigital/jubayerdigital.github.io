@@ -1,0 +1,28 @@
+---
+interface Props {
+  data: { heading: string; body: string };
+}
+const { data } = Astro.props;
+---
+
+<section class="problem section">
+  <div class="wrap wrap--narrow reveal">
+    <p class="eyebrow">The problem</p>
+    <h2>{data.heading}</h2>
+    <p class="problem__body">{data.body}</p>
+  </div>
+</section>
+
+<style>
+  .problem .wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .problem__body {
+    font-size: clamp(1.1rem, 1rem + 0.4vw, 1.35rem);
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+</style>

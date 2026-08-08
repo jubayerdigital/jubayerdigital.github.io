@@ -1,24 +1,43 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Navbar from "../components/Navbar.astro";
-import Hero from "../components/Hero.astro";
-import TrustBar from "../components/TrustBar.astro";
-import ProblemSection from "../components/ProblemSection.astro";
-import FeaturedResults from "../components/FeaturedResults.astro";
-import Services from "../components/Services.astro";
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import TrustBar from '../components/TrustBar.astro';
+import Problem from '../components/Problem.astro';
+import CaseStudies from '../components/CaseStudies.astro';
+import Process from '../components/Process.astro';
+import About from '../components/About.astro';
+import TrustBuilding from '../components/TrustBuilding.astro';
+import Services from '../components/Services.astro';
+import Faq from '../components/Faq.astro';
+import Testimonials from '../components/Testimonials.astro';
+import FinalCta from '../components/FinalCta.astro';
+import { getEntry, getCollection } from 'astro:content';
+
+const site = await getEntry('site', 'settings');
+const hero = await getEntry('hero', 'hero');
+const trustBar = await getEntry('trust-bar', 'trust-bar');
+const problem = await getEntry('problem', 'problem');
+const process = await getEntry('process', 'process');
+const about = await getEntry('about', 'about');
+const trustBuilding = await getEntry('trust-building', 'trust-building');
+const finalCta = await getEntry('final-cta', 'final-cta');
+
+const caseStudies = (await getCollection('case-studies')).sort((a, b) => a.data.order - b.data.order);
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const faqs = (await getCollection('faqs')).sort((a, b) => a.data.order - b.data.order);
+const testimonials = (await getCollection('testimonials')).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<BaseLayout>
-
-<Navbar />
-
-<Hero />
-
-<TrustBar />
-
-<ProblemSection />
-<FeaturedResults />
-<Services />
-
-
-</BaseLayout>
+<Layout title={`${site?.data.siteName} — ${site?.data.tagline}`}>
+  {hero && <Hero data={hero.data} />}
+  {trustBar && <TrustBar data={trustBar.data} />}
+  {problem && <Problem data={problem.data} />}
+  <CaseStudies studies={caseStudies.map((c) => c.data)} />
+  {process && <Process data={process.data} />}
+  {about && <About data={about.data} />}
+  {trustBuilding && <TrustBuilding data={trustBuilding.data} />}
+  <Services services={services.map((s) => s.data)} />
+  <Faq faqs={faqs.map((f) => f.data)} />
+  <Testimonials testimonials={testimonials.map((t) => t.data)} />
+  {finalCta && <FinalCta data={finalCta.data} email={site?.data.email} />}
+</Layout>

@@ -1,0 +1,45 @@
+---
+interface Props {
+  data: {
+    headline: string;
+    reminderLine: string;
+    buttonLabel: string;
+    buttonHref: string;
+    trustLine?: string;
+  };
+  email?: string;
+}
+const { data, email } = Astro.props;
+const mailHref = email ? `mailto:${email}?subject=Strategy%20Call%20Request` : data.buttonHref;
+---
+
+<section class="final-cta section section--deep" id="contact">
+  <div class="wrap wrap--narrow final-cta__inner reveal">
+    <h2>{data.headline}</h2>
+    <p class="final-cta__reminder">{data.reminderLine}</p>
+    <a href={mailHref} class="btn btn--primary">{data.buttonLabel}</a>
+    {data.trustLine && <p class="final-cta__trust">{data.trustLine}</p>}
+  </div>
+</section>
+
+<style>
+  .final-cta__inner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .final-cta__reminder {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: rgba(243, 245, 247, 0.78);
+    max-width: 48ch;
+  }
+
+  .final-cta__trust {
+    font-size: 0.85rem;
+    color: rgba(243, 245, 247, 0.55);
+  }
+</style>

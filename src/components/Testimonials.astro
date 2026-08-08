@@ -1,0 +1,78 @@
+---
+interface TestimonialItem {
+  quote: string;
+  name?: string;
+  role?: string;
+  placeholder: boolean;
+}
+interface Props {
+  testimonials: TestimonialItem[];
+}
+const { testimonials } = Astro.props;
+const real = testimonials.filter((t) => !t.placeholder && t.quote);
+---
+
+<section class="testimonials section section--alt">
+  <div class="wrap wrap--narrow">
+    {real.length > 0 ? (
+      <div class="testimonials__list">
+        {real.map((t) => (
+          <figure class="testimonials__item reveal">
+            <blockquote>{t.quote}</blockquote>
+            {(t.name || t.role) && (
+              <figcaption>
+                {t.name}{t.name && t.role ? ', ' : ''}{t.role}
+              </figcaption>
+            )}
+          </figure>
+        ))}
+      </div>
+    ) : (
+      <div class="testimonials__placeholder reveal">
+        <p class="eyebrow">Testimonials</p>
+        <p class="testimonials__placeholder-text">
+          Client stories will go here as engagements wrap up. Reserved space, not filled with anything invented.
+        </p>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .testimonials__item {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .testimonials__item blockquote {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 1.1rem + 1vw, 1.8rem);
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+  }
+
+  .testimonials__item figcaption {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+
+  .testimonials__placeholder {
+    text-align: center;
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+    padding: clamp(2.5rem, 2rem + 3vw, 4rem) 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .testimonials__placeholder-text {
+    color: var(--ink-faint);
+    max-width: 44ch;
+  }
+</style>

@@ -1,0 +1,16 @@
+siteName: "Jubayer"
+tagline: "Digital Marketing Specialist"
+navLinks:
+  - label: "Services"
+    href: "#services"
+  - label: "About"
+    href: "#about"
+  - label: "Contact"
+    href: "#contact"
+socials:
+  - platform: "LinkedIn"
+    url: "https://linkedin.com/in/jubayerdigital"
+  - platform: "Instagram"
+    url: "https://instagram.com/jubayerdigital"
+email: "hello@jubayerdigital.com"
+footerNote: "Marketing that pays for itself."

@@ -1,1 +1,183 @@
+backend:
+  name: github
+  repo: jubayerdigital/jubayerdigital.github.io
+  branch: main
+  # Decap needs an OAuth relay to authenticate with GitHub from a
+  # non-Netlify-hosted site. See README.md → "Setting up the CMS login"
+  # for how to point this at your own OAuth provider once you have one.
+  # base_url: https://your-oauth-provider.example.com
 
+site_url: https://jubayerdigital.github.io
+display_url: https://jubayerdigital.github.io
+logo_url: /favicon.svg
+
+publish_mode: simple
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  # -------------------------------------------------------------------
+  # Site-wide settings — single file
+  # -------------------------------------------------------------------
+  - name: "site"
+    label: "Site Settings"
+    files:
+      - name: "settings"
+        label: "General Settings"
+        file: "src/content/site/settings.yaml"
+        fields:
+          - { label: "Site Name", name: "siteName", widget: "string" }
+          - { label: "Tagline", name: "tagline", widget: "string" }
+          - label: "Nav Links"
+            name: "navLinks"
+            widget: "list"
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Link (e.g. #services)", name: "href", widget: "string" }
+          - label: "Social Links"
+            name: "socials"
+            widget: "list"
+            fields:
+              - { label: "Platform", name: "platform", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+          - { label: "Contact Email", name: "email", widget: "string" }
+          - { label: "Footer Note", name: "footerNote", widget: "string", required: false }
+
+  # -------------------------------------------------------------------
+  # Homepage sections — each a single file, grouped for easy editing
+  # -------------------------------------------------------------------
+  - name: "home"
+    label: "Homepage Sections"
+    files:
+      - name: "hero"
+        label: "1. Hero"
+        file: "src/content/home/hero.yaml"
+        fields:
+          - { label: "Eyebrow", name: "eyebrow", widget: "string", required: false }
+          - { label: "Headline", name: "headline", widget: "string" }
+          - { label: "Supporting Line", name: "supportingLine", widget: "text" }
+          - { label: "Button Label", name: "buttonLabel", widget: "string" }
+          - { label: "Button Link", name: "buttonHref", widget: "string" }
+          - label: "Visual Type"
+            name: "visualType"
+            widget: "select"
+            options: ["chart", "video"]
+            default: "chart"
+          - { label: "Video (if visual type is video)", name: "visualVideo", widget: "file", required: false }
+          - { label: "Chart Caption", name: "chartCaption", widget: "string", required: false }
+
+      - name: "trust-bar"
+        label: "2. Trust Bar"
+        file: "src/content/home/trust-bar.yaml"
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+
+      - name: "problem"
+        label: "3. The Problem You Solve"
+        file: "src/content/home/problem.yaml"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Body", name: "body", widget: "text" }
+
+      - name: "process"
+        label: "5. Process / How You Work"
+        file: "src/content/home/process.yaml"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Subheading", name: "subheading", widget: "string", required: false }
+          - label: "Steps"
+            name: "steps"
+            widget: "list"
+            fields:
+              - { label: "Number (e.g. 01)", name: "number", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+
+      - name: "about"
+        label: "6. About You"
+        file: "src/content/home/about.yaml"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Body", name: "body", widget: "text" }
+          - { label: "Photo", name: "photo", widget: "image", required: false }
+          - { label: "Signature Line", name: "signatureLine", widget: "string", required: false }
+
+      - name: "trust-building"
+        label: "7. Trust Building"
+        file: "src/content/home/trust-building.yaml"
+        fields:
+          - label: "Trust Signals"
+            name: "signals"
+            widget: "list"
+            field: { label: "Signal", name: "signal", widget: "string" }
+          - { label: "Doubt-Addressing Line", name: "doubtLine", widget: "text" }
+
+      - name: "final-cta"
+        label: "11. Final CTA"
+        file: "src/content/home/final-cta.yaml"
+        fields:
+          - { label: "Headline", name: "headline", widget: "string" }
+          - { label: "Reminder Line", name: "reminderLine", widget: "text" }
+          - { label: "Button Label", name: "buttonLabel", widget: "string" }
+          - { label: "Button Link", name: "buttonHref", widget: "string" }
+          - { label: "Trust Line (under button)", name: "trustLine", widget: "string", required: false }
+
+  # -------------------------------------------------------------------
+  # Repeatable content — add, remove, and reorder entries
+  # -------------------------------------------------------------------
+  - name: "case-studies"
+    label: "4. Case Studies"
+    folder: "src/content/case-studies"
+    create: true
+    slug: "{{fields.order}}-{{slug}}"
+    fields:
+      - { label: "Order", name: "order", widget: "number", value_type: "int" }
+      - { label: "Client / Project", name: "client", widget: "string" }
+      - { label: "Problem", name: "problem", widget: "text" }
+      - { label: "Approach", name: "approach", widget: "text" }
+      - { label: "Result", name: "result", widget: "text" }
+      - { label: "Key Stat Number (e.g. 3.4x)", name: "statNumber", widget: "string" }
+      - { label: "Key Stat Label", name: "statLabel", widget: "string" }
+
+  - name: "services"
+    label: "8. Services"
+    folder: "src/content/services"
+    create: true
+    extension: "yaml"
+    slug: "{{fields.order}}-{{slug}}"
+    fields:
+      - { label: "Order", name: "order", widget: "number", value_type: "int" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Outcome (\"You get...\")", name: "outcome", widget: "text" }
+
+  - name: "faqs"
+    label: "9. FAQ"
+    folder: "src/content/faqs"
+    create: true
+    extension: "yaml"
+    slug: "{{fields.order}}-{{slug}}"
+    fields:
+      - { label: "Order", name: "order", widget: "number", value_type: "int" }
+      - { label: "Question", name: "question", widget: "string" }
+      - { label: "Answer", name: "answer", widget: "text" }
+
+  - name: "testimonials"
+    label: "10. Testimonials"
+    folder: "src/content/testimonials"
+    create: true
+    slug: "{{fields.order}}-{{slug}}"
+    fields:
+      - { label: "Order", name: "order", widget: "number", value_type: "int" }
+      - { label: "Quote", name: "quote", widget: "text", required: false }
+      - { label: "Client Name", name: "name", widget: "string", required: false }
+      - { label: "Client Role / Company", name: "role", widget: "string", required: false }
+      - { label: "Photo", name: "photo", widget: "image", required: false }
+      - label: "This is a placeholder (hides from the live page until real quote is added)"
+        name: "placeholder"
+        widget: "boolean"
+        default: true

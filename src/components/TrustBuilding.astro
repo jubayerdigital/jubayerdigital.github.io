@@ -1,0 +1,60 @@
+---
+interface Props {
+  data: {
+    signals: string[];
+    doubtLine: string;
+  };
+}
+const { data } = Astro.props;
+---
+
+<section class="trust section">
+  <div class="wrap">
+    <ul class="trust__signals">
+      {data.signals.map((signal) => (
+        <li class="reveal">{signal}</li>
+      ))}
+    </ul>
+
+    <p class="trust__doubt wrap--narrow reveal">{data.doubtLine}</p>
+  </div>
+</section>
+
+<style>
+  .trust__signals {
+    list-style: none;
+    margin: 0 0 clamp(3rem, 2.5rem + 2vw, 5rem);
+    padding: 0;
+    display: grid;
+    gap: 1.75rem;
+    max-width: 760px;
+  }
+
+  .trust__signals li {
+    padding-left: 1.6rem;
+    position: relative;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  .trust__signals li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .trust__doubt {
+    margin-inline: auto;
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 1.2rem + 1vw, 1.9rem);
+    line-height: 1.4;
+    letter-spacing: -0.005em;
+  }
+</style>

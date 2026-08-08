@@ -1,0 +1,77 @@
+---
+interface Props {
+  data: {
+    heading: string;
+    subheading?: string;
+    steps: { number: string; title: string; description: string }[];
+  };
+}
+const { data } = Astro.props;
+---
+
+<section class="process section">
+  <div class="wrap">
+    <div class="process__intro reveal">
+      <p class="eyebrow">Process</p>
+      <h2>{data.heading}</h2>
+      {data.subheading && <p class="process__sub">{data.subheading}</p>}
+    </div>
+
+    <ol class="process__steps">
+      {data.steps.map((step) => (
+        <li class="process__step reveal">
+          <span class="numeral process__number">{step.number}</span>
+          <h3>{step.title}</h3>
+          <p>{step.description}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .process__intro {
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+  }
+
+  .process__sub {
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+  }
+
+  .process__steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .process__step {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .process__number {
+    font-size: 1.75rem;
+    line-height: 1;
+  }
+
+  .process__step p {
+    color: var(--ink-soft);
+    max-width: 40ch;
+  }
+
+  @media (min-width: 860px) {
+    .process__steps {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

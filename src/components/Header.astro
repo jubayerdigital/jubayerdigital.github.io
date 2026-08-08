@@ -1,0 +1,75 @@
+---
+interface Props {
+  site: {
+    siteName: string;
+    navLinks: { label: string; href: string }[];
+  };
+}
+const { site } = Astro.props;
+---
+
+<header class="header">
+  <div class="wrap header__row">
+    <a href="/" class="header__mark">{site.siteName}</a>
+    <nav class="header__nav" aria-label="Primary">
+      {site.navLinks.map((link) => (
+        <a href={link.href}>{link.label}</a>
+      ))}
+    </nav>
+    <a href="#contact" class="btn btn--ghost header__cta">Apply for a Call</a>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(243, 245, 247, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 1.1rem;
+  }
+
+  .header__mark {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  .header__nav {
+    display: none;
+    gap: 2.25rem;
+  }
+
+  .header__nav a {
+    text-decoration: none;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    transition: color 150ms ease-out;
+  }
+
+  .header__nav a:hover {
+    color: var(--ink);
+  }
+
+  .header__cta {
+    padding: 0.6em 1.1em;
+    font-size: 0.85rem;
+  }
+
+  @media (min-width: 760px) {
+    .header__nav {
+      display: flex;
+    }
+  }
+</style>
